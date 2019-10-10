@@ -550,6 +550,9 @@ function Altoholic:UpdatePlayerSkills()
 	
 	if not c then return end
 	
+	V.profs = V.profs or {}
+	self:ClearTable(V.profs)
+	
     -- *** Skills inventory ***
 	for i = GetNumSkillLines(), 1, -1 do		-- 1st pass, expand all categories
 		local _, isHeader = GetSkillLineInfo(i)
@@ -563,10 +566,26 @@ function Altoholic:UpdatePlayerSkills()
 		local skillName, isHeader, _, skillRank, _, _, skillMaxRank = GetSkillLineInfo(i)
 		if isHeader then
 			category = skillName
+			if category == L["Professions"] then c.skill[skillName] = nil end
 		else
 			if category and skillName then
 				c.skill[category][skillName] = skillRank .. "|" .. skillMaxRank
+				if category == L["Professions"] then V.profs[skillName] = true end
 			end
+		end
+	end
+
+	self:PurgeProfessions()
+end
+
+function Altoholic:PurgeProfessions()
+	local c = Altoholic.db.account.data[V.faction][V.realm].char[UnitName("player")]
+	if not c then return end
+
+	-- drop recipe lists for deleted professions
+	for prof, _ in pairs(c.recipes) do
+		if not V.profs[prof] then
+			c.recipes[prof] = nil
 		end
 	end
 end
