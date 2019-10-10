@@ -31,18 +31,14 @@ function AltoholicTabCharacters:SelectRealmDropDown_Initialize()
 				UIDropDownMenu_SetSelectedValue(this.owner, V.CurrentFaction .."|".. V.CurrentRealm)
 				UIDropDownMenu_SetText(V.CurrentRealm, this.owner)
 				
-				if OldRealm then	-- clear the "select char" drop down only if realm has changed
-					if OldRealm ~= V.CurrentRealm then
-						UIDropDownMenu_ClearAll(AltoholicTabCharacters_SelectChar);
-						UIDropDownMenu_ClearAll(AltoholicTabCharacters_View);
-						AltoholicTabCharactersStatus:SetText("")
-						V.CurrentAlt = nil
-						V.CurrentProfession = nil
-						Altoholic:BuildFactionsTable()
-						
-						AltoholicTabCharacters:HideAll()
-					end
-				end
+				UIDropDownMenu_ClearAll(AltoholicTabCharacters_SelectChar);
+				UIDropDownMenu_ClearAll(AltoholicTabCharacters_View);
+				AltoholicTabCharactersStatus:SetText("")
+				V.CurrentAlt = nil
+				V.CurrentProfession = nil
+				Altoholic:BuildFactionsTable()
+				
+				AltoholicTabCharacters:HideAll()
 			end
 			UIDropDownMenu_AddButton(info, 1); 
 		end
