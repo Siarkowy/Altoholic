@@ -207,7 +207,7 @@ function Altoholic:OnEnable()
 	_G["AltoholicFrameName"]:SetText("Altoholic |cFFFFFFFF"..V.version)
 	V.player = UnitName("player")
 	V.realm = GetRealmName()
-	V.faction = UnitFactionGroup("player")
+	V.faction = "Common" -- UnitFactionGroup("player")
 	
 	V.CurrentFaction = V.faction
 	V.CurrentRealm = V.realm
